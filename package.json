@@ -1,7 +1,7 @@
 {
-  "name": "cross-toast",
+  "name": "bunt-toast",
   "private": false,
-  "version": "1.0.3",
+  "version": "2.0.0",
   "type": "module",
   "files": [
     "dist",
@@ -49,6 +49,14 @@
     "typescript"
   ],
   "author": "samuraikitts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sambabib/bunt-toast.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sambabib/bunt-toast/issues"
+  },
+  "homepage": "https://sambabib.github.io/bunt-toast/",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=16.8.0",

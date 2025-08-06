@@ -1,4 +1,4 @@
-import { defineComponent as l, ref as r, onMounted as p, onBeforeUnmount as m, createElementBlock as c, createCommentVNode as d, openBlock as f, normalizeClass as u, createElementVNode as g, toDisplayString as y } from "vue";
+import { defineComponent as l, ref as r, onMounted as p, onBeforeUnmount as c, createElementBlock as m, createCommentVNode as d, openBlock as f, normalizeClass as u, createElementVNode as g, toDisplayString as y } from "vue";
 const v = l({
   name: "VueToast",
   props: {
@@ -38,7 +38,7 @@ const v = l({
           t.value = !1, a();
         }, 350);
       }, e.duration);
-    }), m(() => {
+    }), c(() => {
       i && clearTimeout(i);
     }), {
       show: t,
@@ -54,7 +54,7 @@ const v = l({
   return t;
 };
 function V(e, n, t, o, s, i) {
-  return e.show ? (f(), c("div", {
+  return e.show ? (f(), m("div", {
     key: 0,
     class: u(["toast-container", e.position, e.type, e.theme, e.isVisible ? "visible" : ""])
   }, [
@@ -63,8 +63,8 @@ function V(e, n, t, o, s, i) {
     }, y(e.message), 3)
   ], 2)) : d("", !0);
 }
-const T = /* @__PURE__ */ h(v, [["render", V], ["__scopeId", "data-v-3b423778"]]);
+const T = /* @__PURE__ */ h(v, [["render", V], ["__scopeId", "data-v-37c79dbf"]]);
 export {
   T as V
 };
-//# sourceMappingURL=Toast-DOn1agdy.js.map
+//# sourceMappingURL=Toast-jgtfBB7a.js.map

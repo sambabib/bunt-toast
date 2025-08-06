@@ -159,20 +159,20 @@ export default defineComponent({
 
 /* Toast content base styles */
 .toast-content {
-  background: var(--toast-bg);
-  background-image: radial-gradient(1139.98% 138.18% at 0 0, hsla(0, 0%, 100%, .25) 0, hsla(0, 0%, 100%, 0) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--toast-text);
   padding: 12px 24px;
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 0 0 1px hsla(0, 0%, 100%, 0.1);
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 12px;
+  border: 1px solid transparent;
+  background-image: radial-gradient(1139.98% 138.18% at 0 0, hsla(0, 0%, 100%, .25) 0, hsla(0, 0%, 100%, 0) 100%);
+  background-color: var(--toast-bg);
   opacity: 0;
   will-change: transform, opacity;
   transition: transform 450ms cubic-bezier(0.25, 0.1, 0.25, 1.0),
@@ -180,29 +180,11 @@ export default defineComponent({
 }
 
 /* Types */
-.success .toast-content {
-  background: var(--toast-bg);
-  background-image:
-    radial-gradient(1139.98% 138.18% at 0 0, hsla(0, 0%, 100%, .25) 0, hsla(0, 0%, 100%, 0) 100%),
-    radial-gradient(circle at top left, rgba(76, 175, 80, 0.25), transparent 50%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.error .toast-content {
-  background: var(--toast-bg);
-  background-image:
-    radial-gradient(1139.98% 138.18% at 0 0, hsla(0, 0%, 100%, .25) 0, hsla(0, 0%, 100%, 0) 100%),
-    radial-gradient(circle at top left, rgba(244, 67, 54, 0.25), transparent 50%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.info .toast-content {
-  background: var(--toast-bg);
-  background-image:
-    radial-gradient(1139.98% 138.18% at 0 0, hsla(0, 0%, 100%, .25) 0, hsla(0, 0%, 100%, 0) 100%),
-    radial-gradient(circle at top left, rgba(33, 150, 243, 0.25), transparent 50%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+
+
+
 
 /* Initial positions for entry animations */
 .top-right .toast-content {

@@ -65,17 +65,17 @@
 .toastContent {
   background: var(--toast-bg);
   background-image: radial-gradient(1139.98% 138.18% at 0 0, hsla(0, 0%, 100%, .25) 0, hsla(0, 0%, 100%, 0) 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(8px); */
+  /* -webkit-backdrop-filter: blur(8px); */
   color: var(--toast-text);
+  height: fit-content;
   padding: 12px 24px;
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); */
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 12px;
   opacity: 0;
   will-change: transform, opacity;

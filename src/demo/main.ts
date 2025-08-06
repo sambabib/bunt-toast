@@ -76,10 +76,20 @@ style.textContent = `
   }
   
   .nav-brand-icon {
-    font-size: clamp(1.1rem, 2.5vw, 1.25rem);
-    transition: transform 0.3s ease;
+    font-size: 24px;
   }
-  
+
+  .nav-brand-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+  }
+
+  [data-theme="dark"] .nav-brand-text {
+    color: #fff;
+  }
+
   .nav-brand:hover .nav-brand-icon {
     animation: pulse 1s ease infinite;
   }
@@ -668,42 +678,33 @@ style.textContent = `
     background: #d6d6d6;
   }
 
-  .theme-slider::before {
-    content: '☀️';
-    position: absolute;
-    left: 8px;
-    top: 4px;
-    font-size: 14px;
-    z-index: 2;
-    opacity: 0.7;
-  }
-
-  .theme-slider::after {
-    content: '🌙';
-    position: absolute;
-    right: 8px;
-    top: 4px;
-    font-size: 14px;
-    z-index: 2;
-    opacity: 0.7;
-  }
-
   .theme-slider-thumb {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: #ffffff;
+    background: white;
     border-radius: 50%;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    z-index: 3;
-    left: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #555;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
   }
 
-  .theme-slider-thumb.dark {
-    transform: translateX(calc(100% - 20px));
-    background: #333;
+  /* Slider thumb positions based on theme class */
+  .theme-slider.light .theme-slider-thumb {
+    transform: translateX(0px);
   }
+
+  .theme-slider.dark .theme-slider-thumb {
+    transform: translateX(34px);
+  }
+
+
 
   .theme-slider-track {
     position: absolute;
@@ -716,25 +717,7 @@ style.textContent = `
     pointer-events: none;
   }
 
-  .theme-slider-labels {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    pointer-events: none;
-  }
 
-  .theme-slider-label {
-    flex: 1;
-    text-align: center;
-    font-size: 10px;
-    line-height: 26px;
-    color: #888;
-    opacity: 0.7;
-    font-weight: 600;
-  }
 
   /* Custom dropdown */
   .custom-dropdown {
@@ -754,7 +737,7 @@ style.textContent = `
     justify-content: space-between;
     padding: 8px 12px;
     background: var(--bg-primary);
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
     color: var(--text-primary);
     font-size: 0.875rem;
@@ -1016,12 +999,12 @@ const navHeader = document.createElement('div');
 navHeader.className = 'nav-header';
 navHeader.innerHTML = `
   <a href="#" class="nav-brand">
-    <span class="nav-brand-icon">🍞</span>
+    <span class="nav-brand-text">&lt;/bunt-toast&gt;</span>
   </a>
   <div class="nav-controls">
     <div class="nav-switch">
-      <div class="theme-slider" id="theme-slider" onclick="window.toggleTheme(window.currentFramework)">
-        <div class="theme-slider-thumb light"></div>
+      <div class="theme-slider light" id="theme-slider">
+        <div class="theme-slider-thumb">L</div>
         <div class="theme-slider-track"></div>
       </div>
     </div>
@@ -1049,8 +1032,8 @@ container.innerHTML = `
         </header>
 
         <section class="doc-section" aria-label="Quick actions">
-          <a href="https://github.com/sambabib/cross-toast" target="_blank" class="doc-github">View Documentation</a>
-          <button class="try-toast-btn" onclick="window.tryToastDemo()">Try Cross Toast</button>
+          <a href="https://github.com/sambabib/bunt-toast" target="_blank" class="doc-github">View Documentation</a>
+          <button class="try-toast-btn" onclick="window.tryToastDemo()">Try Bunt Toast</button>
         </section>
 
         <section class="predemo-tabs" aria-label="Features">
@@ -1085,7 +1068,7 @@ document.body.appendChild(reactRoot);
 
 // Framework and theme state
 let currentFramework: 'react' | 'vue' = 'react'; // Default
-const themes: Record<'react' | 'vue', 'light' | 'dark'> = { react: 'light', vue: 'light' };
+
 // Use a single global toast type instead of per-framework types
 let currentToastType: ToastType = 'success';
 
@@ -1099,9 +1082,9 @@ function getToast(): typeof reactToast {
 
 // Quick toast function for the Toast Me button
 function showQuickToast(): void {
-  getToast().success("Thanks for trying Cross Toast! 🎉", {
+  getToast().success("Thanks for trying Bunt Toast! 🎉", {
     position: 'bottom-right',
-    theme: themes[currentFramework]
+    theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
   });
 }
 
@@ -1141,7 +1124,7 @@ function switchTab(framework: 'react' | 'vue') {
   if (framework === 'react') {
     activeSection.innerHTML = `
       <div class="example-container">
-        <pre class="example-code" data-copy="import { toast } from 'cross-toast/react';
+        <pre class="example-code" data-copy="import { toast } from 'bunt-toast/react';
 
 function App() {
   const showCustomToast = () => {
@@ -1151,7 +1134,7 @@ function App() {
       theme: 'dark',
     });
   };
-}">import { toast } from 'cross-toast/react';
+}">import { toast } from 'bunt-toast/react';
 
 function App() {
   const showCustomToast = () => {
@@ -1173,7 +1156,7 @@ function App() {
   } else {
     activeSection.innerHTML = `
       <div class="example-container">
-        <pre class="example-code" data-copy="import { toast } from 'cross-toast/vue';
+        <pre class="example-code" data-copy="import { toast } from 'bunt-toast/vue';
 
 export default {
   methods: {
@@ -1185,7 +1168,7 @@ export default {
       });
     }
   }
-}">import { toast } from 'cross-toast/vue';
+}">import { toast } from 'bunt-toast/vue';
 
 export default {
   methods: {
@@ -1215,22 +1198,15 @@ export default {
   }
 
   // Update UI controls to match the current framework settings
-  updateUIForCurrentFramework(framework);
+  updateUIForCurrentFramework();
 
   // Initialize code copy handlers for new elements
   initializeCodeCopyHandlers();
 }
 
 // Helper to update UI controls based on the current framework's settings
-function updateUIForCurrentFramework(framework: 'react' | 'vue') {
-  // Update theme slider
-  const currentTheme = themes[framework];
-  const themeSlider = document.getElementById('theme-slider');
-  const thumb = themeSlider?.querySelector('.theme-slider-thumb');
+function updateUIForCurrentFramework() {
 
-  if (thumb) {
-    thumb.className = 'theme-slider-thumb ' + currentTheme;
-  }
 
   // Update type dropdown
   const currentType = currentToastType;
@@ -1252,73 +1228,8 @@ function updateUIForCurrentFramework(framework: 'react' | 'vue') {
   });
 }
 
-// Set theme for a framework
-function setTheme(framework: 'react' | 'vue', theme: 'light' | 'dark') {
-  themes[framework] = theme;
-
-  // Update theme buttons
-  const themeButtons = document.querySelectorAll('.theme-buttons .control-button');
-  themeButtons.forEach(btn => {
-    btn.classList.remove('active');
-    if (btn instanceof HTMLElement && btn.textContent?.toLowerCase().includes(theme)) {
-      btn.classList.add('active');
-    }
-  });
-}
-
-// Toggle theme between light and dark
-function toggleTheme(): void {
-  const framework = currentFramework;
-  const newTheme = themes[framework] === 'light' ? 'dark' : 'light';
-  setTheme(framework, newTheme);
-
-  // Update theme for framework
-  themes[framework] = newTheme;
-
-  // Update document theme
-  document.documentElement.setAttribute('data-theme', newTheme);
-
-  // Update theme slider
-  const themeSlider = document.getElementById('theme-slider');
-  const thumb = themeSlider?.querySelector('.theme-slider-thumb');
-
-  if (thumb) {
-    thumb.className = 'theme-slider-thumb ' + newTheme;
-  }
-
-  // Show toast notification about theme change with the currently selected type
-  const message = `Switched to ${newTheme} theme! 🌓`;
-  const type = currentToastType;
-  const toast = getToast();
-
-  switch (type) {
-    case 'success':
-      toast.success(message, {
-        theme: newTheme,
-        position: 'bottom-right'
-      });
-      break;
-    case 'error':
-      toast.error(message, {
-        theme: newTheme,
-        position: 'bottom-right'
-      });
-      break;
-    case 'info':
-      toast.info(message, {
-        theme: newTheme,
-        position: 'bottom-right'
-      });
-      break;
-    default:
-      toast.show({
-        message,
-        position: 'bottom-right',
-        type,
-        theme: newTheme
-      });
-  }
-}
+const themes: ('light' | 'dark')[] = ['light', 'dark'];
+let currentThemeIndex = 0;
 
 // Show positioned toast for each framework
 function showPositionedToast(framework: 'react' | 'vue', position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'): void {
@@ -1364,19 +1275,19 @@ function showPositionedToast(framework: 'react' | 'vue', position: 'top-left' | 
     case 'success':
       toast.success(message, {
         position,
-        theme: themes[framework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
       break;
     case 'error':
       toast.error(message, {
         position,
-        theme: themes[framework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
       break;
     case 'info':
       toast.info(message, {
         position,
-        theme: themes[framework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
       break;
     default:
@@ -1384,7 +1295,7 @@ function showPositionedToast(framework: 'react' | 'vue', position: 'top-left' | 
         message,
         position,
         type,
-        theme: themes[framework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
   }
 }
@@ -1393,11 +1304,9 @@ function showPositionedToast(framework: 'react' | 'vue', position: 'top-left' | 
 Object.assign(window, {
   showQuickToast,
   switchTab,
-  setTheme,
   showPositionedToast,
   setToastType,
   currentFramework,
-  toggleTheme,
   toggleDropdown,
   selectToastType,
   updateUIForCurrentFramework,
@@ -1411,11 +1320,9 @@ declare global {
   interface Window {
     showQuickToast: typeof showQuickToast;
     switchTab: typeof switchTab;
-    setTheme: typeof setTheme;
     showPositionedToast: typeof showPositionedToast;
     setToastType: typeof setToastType;
     currentFramework: 'react' | 'vue';
-    toggleTheme: typeof toggleTheme;
     toggleDropdown: typeof toggleDropdown;
     selectToastType: typeof selectToastType;
     updateUIForCurrentFramework: typeof updateUIForCurrentFramework;
@@ -1529,12 +1436,12 @@ function copyToClipboard(text: string, element?: HTMLElement): void {
     if (successful) {
       getToast().success("Copied to clipboard! 📋", {
         position: 'bottom-right',
-        theme: themes[currentFramework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
     } else {
       getToast().error("Failed to copy to clipboard 😞", {
         position: 'bottom-right',
-        theme: themes[currentFramework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
     }
   } catch (err) {
@@ -1543,7 +1450,7 @@ function copyToClipboard(text: string, element?: HTMLElement): void {
     // Show error toast
     getToast().error("Failed to copy to clipboard 😞", {
       position: 'bottom-right',
-      theme: themes[currentFramework]
+      theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
     });
   }
 
@@ -1582,12 +1489,12 @@ function updateStepperContent(framework: 'react' | 'vue') {
       <div class="step">
         <span class="step-number">1</span>
         <p>Install the package for your framework</p>
-        <code data-copy="npm install cross-toast"><span>npm install cross-toast</span><span class="copy-tooltip">Click to copy</span></code>
+        <code data-copy="npm install bunt-toast"><span>npm install bunt-toast</span><span class="copy-tooltip">Click to copy</span></code>
       </div>
       <div class="step">
         <span class="step-number">2</span>
         <p>Import and use in your component</p>
-        <code data-copy="import { toast } from 'cross-toast/react';"><span>import { toast } from 'cross-toast/react';</span><span class="copy-tooltip">Click to copy</span></code>
+        <code data-copy="import { toast } from 'bunt-toast/react';"><span>import { toast } from 'bunt-toast/react';</span><span class="copy-tooltip">Click to copy</span></code>
       </div>
       <div class="step">
         <span class="step-number">3</span>
@@ -1600,12 +1507,12 @@ function updateStepperContent(framework: 'react' | 'vue') {
       <div class="step">
         <span class="step-number">1</span>
         <p>Install the package for your framework</p>
-        <code data-copy="npm install cross-toast"><span>npm install cross-toast</span><span class="copy-tooltip">Click to copy</span></code>
+        <code data-copy="npm install bunt-toast"><span>npm install bunt-toast</span><span class="copy-tooltip">Click to copy</span></code>
       </div>
       <div class="step">
         <span class="step-number">2</span>
         <p>Import the toast in your component</p>
-        <code data-copy="import { toast } from 'cross-toast/vue';"><span>import { toast } from 'cross-toast/vue';</span><span class="copy-tooltip">Click to copy</span></code>
+        <code data-copy="import { toast } from 'bunt-toast/vue';"><span>import { toast } from 'bunt-toast/vue';</span><span class="copy-tooltip">Click to copy</span></code>
       </div>
       <div class="step">
         <span class="step-number">3</span>
@@ -1636,19 +1543,19 @@ function tryToastDemo(): void {
     case 'success':
       toast.success(message, {
         position: 'bottom-right',
-        theme: themes[currentFramework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
       break;
     case 'error':
       toast.error(message, {
         position: 'bottom-right',
-        theme: themes[currentFramework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
       break;
     case 'info':
       toast.info(message, {
         position: 'bottom-right',
-        theme: themes[currentFramework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
       break;
     default:
@@ -1656,7 +1563,7 @@ function tryToastDemo(): void {
         message,
         position: 'bottom-right',
         type,
-        theme: themes[currentFramework]
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
       });
   }
 }
@@ -1664,10 +1571,10 @@ function tryToastDemo(): void {
 // Initialize UI once document is loaded
 document.addEventListener('DOMContentLoaded', function () {
   // Set initial theme based on current framework
-  document.documentElement.setAttribute('data-theme', themes[currentFramework]);
+  document.documentElement.setAttribute('data-theme', 'light');
 
   // Set initial UI state for the current framework
-  updateUIForCurrentFramework(currentFramework);
+  updateUIForCurrentFramework();
 
   // Initialize stepper content for the default framework
   updateStepperContent(currentFramework);
@@ -1684,30 +1591,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize code copy handlers
   initializeCodeCopyHandlers();
+
+  // Add theme slider logic
+  const themeSlider = document.getElementById('theme-slider');
+  themeSlider?.addEventListener('click', () => {
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    const newTheme = themes[currentThemeIndex];
+
+
+
+    // Update slider class for animation
+    themeSlider.className = 'theme-slider'; // Reset classes
+    if (newTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeSlider.classList.add('dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeSlider.classList.add('light');
+    }
+
+    // Update thumb text
+    const thumb = themeSlider.querySelector('.theme-slider-thumb') as HTMLElement;
+    if (thumb) {
+      thumb.textContent = newTheme.charAt(0).toUpperCase();
+    }
+
+    // Show toast notification
+    const toast = getToast();
+    toast.success(`Theme set to ${newTheme}`, { position: 'bottom-right', theme: newTheme });
+  });
 });
 
 document.head.innerHTML += `
   <!-- Primary Meta Tags -->
-  <title>Cross-Toast - Beautiful Toast Notifications for React and Vue</title>
-  <meta name="title" content="Cross-Toast - Beautiful Toast Notifications for React and Vue">
+  <title>Bunt-Toast - Beautiful Toast Notifications for React and Vue</title>
+  <meta name="title" content="Bunt-Toast - Beautiful Toast Notifications for React and Vue">
   <meta name="description" content="A lightweight, customizable toast notification library with beautiful animations and theme support for React and Vue applications.">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sambabib.github.io/cross-toast/>
-  <meta property="og:title" content="Cross-Toast - Beautiful Toast Notifications for React and Vue">
+  <meta property="og:url" content="https://sambabib.github.io/bunt-toast/">
+  <meta property="og:title" content="Bunt-Toast - Beautiful Toast Notifications for React and Vue">
   <meta property="og:description" content="A lightweight, customizable toast notification library with beautiful animations and theme support for React and Vue applications.">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://sambabib.github.io/cross-toast/">
-  <meta property="twitter:title" content="Cross-Toast - Beautiful Toast Notifications for React and Vue">
+  <meta property="twitter:url" content="https://sambabib.github.io/bunt-toast/">
+  <meta property="twitter:title" content="Bunt-Toast - Beautiful Toast Notifications for React and Vue">
   <meta property="twitter:description" content="A lightweight, customizable toast notification library with beautiful animations and theme support for React and Vue applications.">
 
   <!-- Additional SEO Tags -->
   <meta name="keywords" content="toast notifications, react toast, vue toast, javascript notifications, ui components, web development">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
-  <meta name="author" content="Cross-Toast">
-  <link rel="canonical" href="https://sambabib.github.io/cross-toast/">
+  <meta name="author" content="Bunt-Toast">
+  <link rel="canonical" href="https://sambabib.github.io/bunt-toast/">
 `;

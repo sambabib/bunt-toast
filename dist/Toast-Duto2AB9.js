@@ -1,5 +1,5 @@
-import { defineComponent as l, ref as r, onMounted as p, onBeforeUnmount as c, createElementBlock as m, createCommentVNode as d, openBlock as f, normalizeClass as u, createElementVNode as g, toDisplayString as y } from "vue";
-const v = l({
+import { defineComponent as p, ref as r, onMounted as c, onBeforeUnmount as m, createElementBlock as d, createCommentVNode as f, openBlock as g, normalizeClass as u, createElementVNode as l, toDisplayString as v } from "vue";
+const y = p({
   name: "VueToast",
   props: {
     message: {
@@ -30,7 +30,7 @@ const v = l({
     const a = () => {
       n("hide");
     };
-    return p(() => {
+    return c(() => {
       setTimeout(() => {
         o.value = !0;
       }, 10), i = setTimeout(() => {
@@ -38,7 +38,7 @@ const v = l({
           t.value = !1, a();
         }, 350);
       }, e.duration);
-    }), c(() => {
+    }), m(() => {
       i && clearTimeout(i);
     }), {
       show: t,
@@ -52,19 +52,21 @@ const v = l({
   for (const [o, s] of n)
     t[o] = s;
   return t;
-};
-function V(e, n, t, o, s, i) {
-  return e.show ? (f(), m("div", {
+}, V = { class: "toast-content" };
+function b(e, n, t, o, s, i) {
+  return e.show ? (g(), d("div", {
     key: 0,
     class: u(["toast-container", e.position, e.type, e.theme, e.isVisible ? "visible" : ""])
   }, [
-    g("div", {
-      class: u(["toast-content", e.type, e.exiting ? "exit" : ""])
-    }, y(e.message), 3)
-  ], 2)) : d("", !0);
+    l("div", {
+      class: u(["toast-outer", e.type, e.exiting ? "exit" : ""])
+    }, [
+      l("div", V, v(e.message), 1)
+    ], 2)
+  ], 2)) : f("", !0);
 }
-const T = /* @__PURE__ */ h(v, [["render", V], ["__scopeId", "data-v-37c79dbf"]]);
+const _ = /* @__PURE__ */ h(y, [["render", b], ["__scopeId", "data-v-a2ab348f"]]);
 export {
-  T as V
+  _ as V
 };
-//# sourceMappingURL=Toast-jgtfBB7a.js.map
+//# sourceMappingURL=Toast-Duto2AB9.js.map

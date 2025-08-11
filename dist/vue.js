@@ -1,5 +1,5 @@
 import { createApp as r, h as m } from "vue";
-import { V as d } from "./Toast-jgtfBB7a.js";
+import { V as d } from "./Toast-Duto2AB9.js";
 const s = {}, e = {
   /**
    * Shows a toast notification with the given props

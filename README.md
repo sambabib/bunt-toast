@@ -1,5 +1,3 @@
-# Bunt-Toast
-
 [![npm version](https://img.shields.io/npm/v/bunt-toast.svg)](https://www.npmjs.com/package/bunt-toast)
 [![bundlephobia](https://img.shields.io/bundlephobia/minzip/bunt-toast)](https://bundlephobia.com/package/bunt-toast)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,11 +10,26 @@ A lightweight, customizable toast notification library for React and Vue.
 - **Customizable**: Position toasts, set durations, and choose themes (light, dark, auto).
 - **Lightweight**: Minimal footprint with zero dependencies.
 - **TypeScript Support**: Fully typed.
--  **Zero Dependencies** - No bloat, just what you need.
+-  **Zero Runtime Dependencies** - No bloat, just what you need. React and Vue are peer dependencies (optional) and are not bundled.
+
+## Size
+
+- Bundle size (min+gzip): 11.3 kB — measured by [bundlejs](https://deno.bundlejs.com/?q=bunt-toast@2.0.2)
+- Note: The “install size” shown by bundlejs includes peer dependencies (React/Vue). Your actual app bundle only includes what you import, and unused framework code is tree-shaken.
+
+Tip: Import the framework-specific entry for best tree-shaking:
+
+```ts
+// React
+import { toast } from 'bunt-toast/react';
+
+// Vue
+import { toast } from 'bunt-toast/vue';
+```
 
 ## Demo
 
-Check out the [live demo](https://sambabib.github.io/bunt-toast/) to see Bunt-Toast in action.
+Check out the [live demo](https://sambabib.github.io/bunt-toast/) to see bunt-toast in action.
 
 ## Installation
 

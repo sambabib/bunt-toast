@@ -1,31 +1,33 @@
 {
   "name": "bunt-toast",
   "private": false,
-  "version": "2.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "2.0.2",
+  "description": "Tiny, framework-agnostic toast notifications for React and Vue.",
   "type": "module",
   "files": [
     "dist",
     "README.md"
   ],
   "main": "./dist/index.cjs",
-  "module": "./dist/index.es.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "default": "./dist/index.js"
     },
     "./react": {
-      "import": "./dist/react/index.es.js",
-      "require": "./dist/react/index.cjs",
-      "types": "./dist/react/index.d.ts"
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
     },
     "./vue": {
-      "import": "./dist/vue/index.es.js",
-      "require": "./dist/vue/index.cjs",
-      "types": "./dist/vue/index.d.ts"
+      "import": "./dist/vue.js",
+      "require": "./dist/vue.cjs"
     }
   },
   "scripts": {
@@ -43,21 +45,27 @@
   },
   "keywords": [
     "toast",
+    "toaster",
+    "toast notifications",
+    "toastify",
     "notification",
     "react",
     "vue",
+    "ui",
+    "library",
     "typescript"
   ],
   "author": "samuraikitts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sambabib/bunt-toast.git"
+    "url": "git+https://github.com/sambabib/bunt-toast.git"
   },
   "bugs": {
     "url": "https://github.com/sambabib/bunt-toast/issues"
   },
   "homepage": "https://sambabib.github.io/bunt-toast/",
   "license": "MIT",
+  "sideEffects": false,
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
